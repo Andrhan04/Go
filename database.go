@@ -11,13 +11,10 @@ var db *sql.DB
 
 func InitDB() error {
 	var err error
-	// Change the connection string
 	db, err = sql.Open("sqlite", "./cats.db")
 	if err != nil {
 		return err
 	}
-
-	// Rest remains the same
 	createTableSQL := `
     CREATE TABLE IF NOT EXISTS cat (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 )
 
-// Create - Add a new cat
+// Add cat
 func CreateCat(cat *Cat) (int64, error) {
 	result, err := db.Exec("INSERT INTO cat (name, age) VALUES (?, ?)",
 		cat.Name, cat.Age)
@@ -20,7 +20,7 @@ func CreateCat(cat *Cat) (int64, error) {
 	return id, nil
 }
 
-// Read - Get all cats
+// Get all cats
 func GetAllCats() ([]Cat, error) {
 	rows, err := db.Query("SELECT id, name, age FROM cat")
 	if err != nil {
@@ -41,7 +41,7 @@ func GetAllCats() ([]Cat, error) {
 	return cats, nil
 }
 
-// Read - Get cat by ID
+// Get cat by ID
 func GetCatByID(id int) (Cat, error) {
 	var cat Cat
 	err := db.QueryRow("SELECT id, name, age FROM cat WHERE id = ?", id).
@@ -57,14 +57,14 @@ func GetCatByID(id int) (Cat, error) {
 	return cat, nil
 }
 
-// Update - Update a cat
+// Update a cat
 func UpdateCat(cat *Cat) error {
 	_, err := db.Exec("UPDATE cat SET name = ?, age = ? WHERE id = ?",
 		cat.Name, cat.Age, cat.ID)
 	return err
 }
 
-// Delete - Delete a cat
+// Delete a cat
 func DeleteCat(id int) error {
 	_, err := db.Exec("DELETE FROM cat WHERE id = ?", id)
 	return err

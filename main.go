@@ -8,23 +8,18 @@ import (
 )
 
 func main() {
-	// Initialize database
 	if err := InitDB(); err != nil {
 		log.Fatal("Error initializing database:", err)
 	}
 	defer CloseDB()
-
-	// Create router
 	r := mux.NewRouter()
 
-	// Define routes
 	r.HandleFunc("/cats", CreateCatHandler).Methods("POST")
 	r.HandleFunc("/cats", GetCatsHandler).Methods("GET")
 	r.HandleFunc("/cats/{id}", GetCatHandler).Methods("GET")
 	r.HandleFunc("/cats/{id}", UpdateCatHandler).Methods("PUT")
 	r.HandleFunc("/cats/{id}", DeleteCatHandler).Methods("DELETE")
 
-	// Start server
 	log.Println("Server starting on :8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
