@@ -1,19 +1,30 @@
 package main
 
 import (
-	"database/sql"
+	"log"
+	"net/http"
 
-	_ "github.com/mattn/go-sqlite3"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	db, err := sql.Open("sqlite3", "./Lesson.db")
-	if err != nil {
-		print("AAAAAAAAAAAAAAA\n\n\n")
-		panic(err)
+	// Initialize database
+	if err := InitDB(); err != nil {
+		log.Fatal("Error initializing database:", err)
 	}
-	print("AAAAAAAAAAAAAAA\n\n\n")
-	state, _ := db.Prepare("CREATE TABLE cat (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INTEGER);")
-	state.Exec()
+	defer CloseDB()
 
+	// Create router
+	r := mux.NewRouter()
+
+	// Define routes
+	r.HandleFunc("/cats", CreateCatHandler).Methods("POST")
+	r.HandleFunc("/cats", GetCatsHandler).Methods("GET")
+	r.HandleFunc("/cats/{id}", GetCatHandler).Methods("GET")
+	r.HandleFunc("/cats/{id}", UpdateCatHandler).Methods("PUT")
+	r.HandleFunc("/cats/{id}", DeleteCatHandler).Methods("DELETE")
+
+	// Start server
+	log.Println("Server starting on :8080")
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
