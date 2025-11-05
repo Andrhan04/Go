@@ -32,21 +32,20 @@ CREATE TABLE IF NOT EXISTS cats (
 
 -- Insert sample data
 INSERT OR IGNORE INTO types (name) VALUES 
-    ('Domestic Shorthair'),
-    ('Persian'),
-    ('Siamese'),
-    ('Maine Coon'),
-    ('Bengal');
+    ('Домашняя'),
+    ('Персидская'),
+    ('Сиамская'),
+    ('Мейн-кун');
 
 INSERT OR IGNORE INTO masters (first_name, last_name, place) VALUES 
-    ('John', 'Doe', 'New York'),
-    ('Jane', 'Smith', 'Los Angeles'),
-    ('Mike', 'Johnson', 'Chicago');
+    ('Галсанов', 'Солбон', 'Иркутск'),
+    ('Громова', 'Альбина', 'Москва'),
+    ('Серебренникова', 'Арина', 'Чита');
 
 INSERT OR IGNORE INTO cats (name, cat_type_id, master_id) VALUES 
-    ('Whiskers', 1, 1),
-    ('Fluffy', 2, 2),
-    ('Shadow', 3, 3);
+    ('Дымок', 1, 1),
+    ('Изюм', 2, 2),
+    ('Барсик', 3, 3);
 
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_cats_type_id ON cats(cat_type_id);
