@@ -4,4 +4,17 @@
 
 <h3>Структура базы  </h3>
 
-Коты - сущьность, имеющая атрибуты id, name, age
+
+cat-api/
+├── main.go
+├── go.mod
+├── handlers/
+│   └── handlers.go
+├── models/
+│   └── models.go
+├── database/
+│   ├── database.go
+│   └── migrations/
+│       └── 001_init.sql
+└── config/
+    └── config.go
