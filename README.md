@@ -4,7 +4,45 @@
 
 <h3>Структура базы  </h3>
 
+```
+┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
+│     masters     │         │      cats       │         │     types       │
+├─────────────────┤         ├─────────────────┤         ├─────────────────┤
+│ id (PK)         │◄┐       │ id (PK)         │       ┌─│ id (PK)         │
+│ first_name      │ │    ┌──│ name            │       │ │ name            │
+│ last_name       │ │    │  │ cat_type_id (FK)│───────┘ │ created_at      │
+│ place           │ │    │  │ master_id (FK)  │         └─────────────────┘
+│ created_at      │ │    │  │ created_at      │
+│ updated_at      │ │    │  │ updated_at      │
+└─────────────────┘ │    │  └─────────────────┘
+                    │    │
+                    │    └───►┌─────────────────┐
+                    │         │     masters     │
+                    │         ├─────────────────┤
+                    └─────────│ id (PK)         │
+                              └─────────────────┘
+```
 
+<h4>Описание таблиц </h4>
+
+### Таблица `masters` (Хозяева)
+- `id` - PRIMARY KEY, автоинкремент
+- `first_name` - имя хозяина
+- `last_name` - фамилия хозяина  
+- `place` - место жительства
+- `created_at`, `updated_at` - метки времени
+
+### Таблица `types` (Типы кошек)
+- `id` - PRIMARY KEY, автоинкремент
+- `name` - название типа (уникальное)
+- `created_at` - метка времени создания
+
+### Таблица `cats` (Кошки)
+- `id` - PRIMARY KEY, автоинкремент
+- `name` - имя кошки
+- `cat_type_id` - FOREIGN KEY к таблице types
+- `master_id` - FOREIGN KEY к таблице masters
+- `created_at`, `updated_at` - метки времени
 
 <h3> Первый запуск </h3>
 go mod init cat-api
